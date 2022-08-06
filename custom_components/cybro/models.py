@@ -1,14 +1,15 @@
 """Models for Cybro."""
+from homeassistant.const import ATTR_CONFIGURATION_URL
+from homeassistant.const import ATTR_IDENTIFIERS
+from homeassistant.const import ATTR_MANUFACTURER
+from homeassistant.const import ATTR_MODEL
+from homeassistant.const import ATTR_NAME
+from homeassistant.const import ATTR_SW_VERSION
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
-from homeassistant.const import (
-    ATTR_SW_VERSION,
-    ATTR_MODEL,
-    ATTR_CONFIGURATION_URL,
-    ATTR_MANUFACTURER,
-    ATTR_NAME,
-    ATTR_IDENTIFIERS,
-)
-from .const import DEVICE_DESCRIPTION, MANUFACTURER, MANUFACTURER_URL
+
+from .const import DEVICE_DESCRIPTION
+from .const import MANUFACTURER
+from .const import MANUFACTURER_URL
 from .coordinator import CybroDataUpdateCoordinator
 
 

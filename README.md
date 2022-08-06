@@ -19,6 +19,7 @@ This integration is a local / remote polling integration that connects to a runn
 ### binary_sensor
 
 There are some diagnostic binary sensors exposed:
+
 - general_error -> the general error tag from the PLC device
 - retentive_fail -> the retentive error tag from the PLC device
 - scan_overrun -> the scan overrun tag from the PLC device, which indicates a program overrun
@@ -26,6 +27,7 @@ There are some diagnostic binary sensors exposed:
 ### sensor
 
 There are some diagnostic binary sensors exposed:
+
 - scan_time -> scan time in ms from the PLC program
 - scan_time_max -> maximum scan time in ms from the PLC program
 - sys.ip_port -> ip addres of the PLC device

@@ -3,43 +3,37 @@ from __future__ import annotations
 
 from datetime import datetime
 
-from cybro import VarType
-
-from homeassistant.components.sensor import (
-    STATE_CLASS_TOTAL_INCREASING,
-    SensorDeviceClass,
-    SensorEntity,
-)
+from homeassistant.components.sensor import SensorDeviceClass
+from homeassistant.components.sensor import SensorEntity
+from homeassistant.components.sensor import STATE_CLASS_TOTAL_INCREASING
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import (
-    ELECTRIC_CURRENT_MILLIAMPERE,
-    ELECTRIC_POTENTIAL_VOLT,
-    ENERGY_KILO_WATT_HOUR,
-    ENERGY_WATT_HOUR,
-    PERCENTAGE,
-    POWER_WATT,
-    SPEED_KILOMETERS_PER_HOUR,
-    TEMP_CELSIUS,
-    TIME_MILLISECONDS,
-)
+from homeassistant.const import ELECTRIC_CURRENT_MILLIAMPERE
+from homeassistant.const import ELECTRIC_POTENTIAL_VOLT
+from homeassistant.const import ENERGY_KILO_WATT_HOUR
+from homeassistant.const import ENERGY_WATT_HOUR
+from homeassistant.const import PERCENTAGE
+from homeassistant.const import POWER_WATT
+from homeassistant.const import SPEED_KILOMETERS_PER_HOUR
+from homeassistant.const import TEMP_CELSIUS
+from homeassistant.const import TIME_MILLISECONDS
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.entity import DeviceInfo, EntityCategory
+from homeassistant.helpers.entity import DeviceInfo
+from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.typing import StateType
 
-from .const import (
-    AREA_ENERGY,
-    AREA_SYSTEM,
-    AREA_WEATHER,
-    ATTR_DESCRIPTION,
-    DEVICE_DESCRIPTION,
-    DOMAIN,
-    LOGGER,
-    MANUFACTURER,
-    MANUFACTURER_URL,
-)
+from .const import AREA_ENERGY
+from .const import AREA_SYSTEM
+from .const import AREA_WEATHER
+from .const import ATTR_DESCRIPTION
+from .const import DEVICE_DESCRIPTION
+from .const import DOMAIN
+from .const import LOGGER
+from .const import MANUFACTURER
+from .const import MANUFACTURER_URL
 from .coordinator import CybroDataUpdateCoordinator
 from .models import CybroEntity
+from cybro import VarType
 
 
 async def async_setup_entry(

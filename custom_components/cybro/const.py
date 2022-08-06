@@ -1,6 +1,6 @@
 """Constants for the Cybro PLC integration."""
-from datetime import timedelta
 import logging
+from datetime import timedelta
 from typing import Final
 
 # Integration domain

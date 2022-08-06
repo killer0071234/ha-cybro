@@ -1,23 +1,20 @@
 """Support for Cybro PLC binary sensor."""
 from __future__ import annotations
 
-from homeassistant.components.binary_sensor import (
-    BinarySensorDeviceClass,
-    BinarySensorEntity,
-)
+from homeassistant.components.binary_sensor import BinarySensorDeviceClass
+from homeassistant.components.binary_sensor import BinarySensorEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.entity import DeviceInfo, DeviceEntryType, EntityCategory
+from homeassistant.helpers.entity import DeviceInfo
+from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.const import ATTR_ATTRIBUTION
-from .const import (
-    AREA_SYSTEM,
-    ATTR_DESCRIPTION,
-    DEVICE_DESCRIPTION,
-    DOMAIN,
-    MANUFACTURER,
-    MANUFACTURER_URL,
-)
+
+from .const import AREA_SYSTEM
+from .const import ATTR_DESCRIPTION
+from .const import DEVICE_DESCRIPTION
+from .const import DOMAIN
+from .const import MANUFACTURER
+from .const import MANUFACTURER_URL
 from .coordinator import CybroDataUpdateCoordinator
 from .models import CybroEntity
 

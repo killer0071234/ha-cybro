@@ -3,15 +3,21 @@ from __future__ import annotations
 
 from collections.abc import Callable
 
-from cybro import Cybro, CybroError, Device as CybroDevice
-
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import CONF_ADDRESS, CONF_HOST, CONF_PORT
+from homeassistant.const import CONF_ADDRESS
+from homeassistant.const import CONF_HOST
+from homeassistant.const import CONF_PORT
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
+from homeassistant.helpers.update_coordinator import UpdateFailed
 
-from .const import DOMAIN, LOGGER, SCAN_INTERVAL
+from .const import DOMAIN
+from .const import LOGGER
+from .const import SCAN_INTERVAL
+from cybro import Cybro
+from cybro import CybroError
+from cybro import Device as CybroDevice
 
 
 class CybroDataUpdateCoordinator(DataUpdateCoordinator[CybroDevice]):

@@ -3,22 +3,19 @@ from __future__ import annotations
 
 from typing import Any
 
-from sqlalchemy import false
-
 from homeassistant.components.light import LightEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from sqlalchemy import false
 
-from .const import (
-    AREA_LIGHTS,
-    ATTR_DESCRIPTION,
-    DEVICE_DESCRIPTION,
-    DOMAIN,
-    MANUFACTURER,
-    MANUFACTURER_URL,
-)
+from .const import AREA_LIGHTS
+from .const import ATTR_DESCRIPTION
+from .const import DEVICE_DESCRIPTION
+from .const import DOMAIN
+from .const import MANUFACTURER
+from .const import MANUFACTURER_URL
 from .coordinator import CybroDataUpdateCoordinator
 from .models import CybroEntity
 

@@ -3,31 +3,26 @@ from __future__ import annotations
 
 from typing import cast
 
-from cybro import VarType
-from sqlalchemy import false, true
-
 from homeassistant.components.weather import WeatherEntity
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import (
-    CONF_UNIT_SYSTEM_METRIC,
-    SPEED_KILOMETERS_PER_HOUR,
-    TEMP_CELSIUS,
-)
+from homeassistant.const import CONF_UNIT_SYSTEM_METRIC
+from homeassistant.const import SPEED_KILOMETERS_PER_HOUR
+from homeassistant.const import TEMP_CELSIUS
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
+from sqlalchemy import false
+from sqlalchemy import true
 
-from .const import (
-    AREA_WEATHER,
-    ATTRIBUTION_PLC,
-    ATTR_DESCRIPTION,
-    DEVICE_DESCRIPTION,
-    DOMAIN,
-    MANUFACTURER,
-    MANUFACTURER_URL,
-)
+from .const import AREA_WEATHER
+from .const import ATTRIBUTION_PLC
+from .const import DEVICE_DESCRIPTION
+from .const import DOMAIN
+from .const import MANUFACTURER
+from .const import MANUFACTURER_URL
 from .coordinator import CybroDataUpdateCoordinator
+from cybro import VarType
 
 PARALLEL_UPDATES = 1
 
