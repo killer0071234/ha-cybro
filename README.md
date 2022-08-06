@@ -98,13 +98,11 @@ If you want to contribute to this please read the [Contribution guidelines](http
 
 ## Credits
 
-This project was generated from [@oncleben31](https://github.com/oncleben31)'s [Home Assistant Custom Component Cookiecutter](https://github.com/oncleben31/cookiecutter-homeassistant-custom-component) template.
-
-Code template was mainly taken from [@Ludeeus](https://github.com/ludeeus)'s [integration_blueprint][integration_blueprint] template
+Code template was mainly taken from [@amosyuen](https://github.com/amosyuen)'s [ha-tplink-deco][ha_tplink_deco] integration
 
 ---
 
-[integration_blueprint]: https://github.com/custom-components/integration_blueprint
+[ha_tplink_deco]: https://github.com/amosyuen/ha-tplink-deco
 [black]: https://github.com/psf/black
 [black-shield]: https://img.shields.io/badge/code%20style-black-000000.svg?style=for-the-badge
 [commits-shield]: https://img.shields.io/github/commit-activity/y/killer0071234/ha-cybro.svg?style=for-the-badge
