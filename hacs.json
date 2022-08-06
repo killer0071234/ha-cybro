@@ -1,0 +1,6 @@
+{
+  "name": "Cybro",
+  "hacs": "0.0.1",
+  "homeassistant": "0.118.0",
+  "render_readme": true
+}
