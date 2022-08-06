@@ -1,8 +1,6 @@
 """Support for Cybro PLC."""
 from __future__ import annotations
 
-from platform import platform
-
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant

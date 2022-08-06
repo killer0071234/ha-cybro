@@ -1,6 +1,6 @@
 {
   "name": "Cybro",
-  "hacs": "0.0.1",
+  "hacs": "1.6.0",
   "homeassistant": "2022.8.1",
   "render_readme": true
 }
