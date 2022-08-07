@@ -13,6 +13,7 @@ from .const import AREA_SYSTEM
 from .const import ATTR_DESCRIPTION
 from .const import DEVICE_DESCRIPTION
 from .const import DOMAIN
+from .const import LOGGER
 from .const import MANUFACTURER
 from .const import MANUFACTURER_URL
 from .coordinator import CybroDataUpdateCoordinator
@@ -28,53 +29,59 @@ async def async_setup_entry(
     """Set up a Cybro binary sensor based on a config entry."""
     coordinator: CybroDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
 
-    if variable_name == "":
-        var_prefix = f"c{coordinator.cybro.nad}."
-        dev_info = DeviceInfo(
-            identifiers={(DOMAIN, var_prefix)},
-            manufacturer=MANUFACTURER,
-            default_name=f"PLC {coordinator.cybro.nad} Diagnosis",
-            suggested_area=AREA_SYSTEM,
-            model=f"{DEVICE_DESCRIPTION} controller",
-            configuration_url=MANUFACTURER_URL,
-        )
-        async_add_entities(
-            [
-                CybroUpdateBinarySensor(
-                    coordinator,
-                    var_prefix + "scan_overrun",
-                    attr_entity_category=EntityCategory.DIAGNOSTIC,
-                    attr_device_class=BinarySensorDeviceClass.PROBLEM,
-                    dev_info=dev_info,
-                ),
-                CybroUpdateBinarySensor(
-                    coordinator,
-                    var_prefix + "retentive_fail",
-                    attr_entity_category=EntityCategory.DIAGNOSTIC,
-                    attr_device_class=BinarySensorDeviceClass.PROBLEM,
-                    dev_info=dev_info,
-                ),
-                CybroUpdateBinarySensor(
-                    coordinator,
-                    var_prefix + "general_error",
-                    attr_entity_category=EntityCategory.DIAGNOSTIC,
-                    attr_device_class=BinarySensorDeviceClass.PROBLEM,
-                    dev_info=dev_info,
-                ),
-            ]
-        )
-        return
-    async_add_entities(
-        [
-            CybroUpdateBinarySensor(
-                coordinator,
-                variable_name,
-            )
-        ]
+    sys_tags = add_system_tags(coordinator)
+    if sys_tags is not None:
+        async_add_entities(sys_tags)
+
+
+def add_system_tags(
+    coordinator: CybroDataUpdateCoordinator,
+) -> list[CybroBinarySensor] | None:
+    """Find system tags in the plc vars.
+    eg: c1000.scan_time and so on
+    """
+    res: list[CybroBinarySensor] = []
+    var_prefix = f"c{coordinator.cybro.nad}."
+
+    dev_info = DeviceInfo(
+        identifiers={(DOMAIN, var_prefix)},
+        manufacturer=MANUFACTURER,
+        default_name=f"c{coordinator.cybro.nad} diagnostics",
+        suggested_area=AREA_SYSTEM,
+        model=DEVICE_DESCRIPTION,
+        configuration_url=MANUFACTURER_URL,
     )
 
+    # find different plc diagnostic vars
+    for key in coordinator.data.plc_info.plc_vars:
+        if key.find(var_prefix) != -1:
+            if key in (f"{var_prefix}scan_overrun", f"{var_prefix}retentive_fail"):
+                res.append(
+                    CybroBinarySensor(
+                        coordinator,
+                        key,
+                        attr_entity_category=EntityCategory.DIAGNOSTIC,
+                        attr_device_class=BinarySensorDeviceClass.PROBLEM,
+                        dev_info=dev_info,
+                    )
+                )
+            elif key.find("general_error") != -1:
+                res.append(
+                    CybroBinarySensor(
+                        coordinator,
+                        key,
+                        attr_entity_category=EntityCategory.DIAGNOSTIC,
+                        attr_device_class=BinarySensorDeviceClass.PROBLEM,
+                        dev_info=dev_info,
+                    )
+                )
 
-class CybroUpdateBinarySensor(CybroEntity, BinarySensorEntity):
+    if len(res) > 0:
+        return res
+    return None
+
+
+class CybroBinarySensor(CybroEntity, BinarySensorEntity):
     """An entity using CoordinatorEntity.
 
     The CoordinatorEntity class provides:
@@ -102,6 +109,7 @@ class CybroUpdateBinarySensor(CybroEntity, BinarySensorEntity):
         self._attr_entity_category = attr_entity_category
         self._attr_device_class = attr_device_class
         self._attr_device_info = dev_info
+        LOGGER.debug(self._attr_unique_id)
         coordinator.data.add_var(self._attr_unique_id, var_type=0)
 
     @property
@@ -129,8 +137,10 @@ class CybroUpdateBinarySensor(CybroEntity, BinarySensorEntity):
     @property
     def extra_state_attributes(self):
         """Return the state attributes."""
+        try:
+            desc = self.coordinator.data.vars[self._attr_unique_id].description
+        except KeyError:
+            desc = self._attr_name
         return {
-            ATTR_DESCRIPTION: self.coordinator.data.vars[
-                self._attr_unique_id
-            ].description,
+            ATTR_DESCRIPTION: desc,
         }
