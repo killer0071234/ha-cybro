@@ -179,7 +179,12 @@ def find_temperatures(
         configuration_url=MANUFACTURER_URL,
     )
     for key in coordinator.data.plc_info.plc_vars:
-        if key.find(".th") != -1 or key.find(".op") != -1:
+        if (
+            key.find(".th") != -1
+            or key.find(".op") != -1
+            or key.find(".ts") != -1
+            or key.find(".fc") != -1
+        ):
             if key.find("_temperature") != -1:
                 res.append(
                     CybroSensorEntity(
@@ -191,6 +196,20 @@ def find_temperatures(
                         None,
                         SensorDeviceClass.TEMPERATURE,
                         0.1,
+                        dev_info,
+                    )
+                )
+            elif key.find("_humidity") != -1:
+                res.append(
+                    CybroSensorEntity(
+                        coordinator,
+                        key,
+                        "",
+                        PERCENTAGE,
+                        VarType.FLOAT,
+                        None,
+                        SensorDeviceClass.HUMIDITY,
+                        1.0,
                         dev_info,
                     )
                 )

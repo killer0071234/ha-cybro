@@ -43,6 +43,12 @@ There are some diagnostic sensors exposed:
 
 XXXX is the NAD of the controller, and YYYY is the IEX module prefix
 
+In addition to the diagnostic sensors, it will check if there are some more sensors:
+
+- temperature devices (eg: op00_temperature, ..)
+- humidity devices (eg: ts00_humidity)
+- energy meter device (eg: power_meter_power, power_meter_energy)
+
 #### Common Attributes
 
 | Attribute   | Example Values (comma separated)  |
