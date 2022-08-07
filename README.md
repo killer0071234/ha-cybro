@@ -20,17 +20,34 @@ This integration is a local / remote polling integration that connects to a runn
 
 There are some diagnostic binary sensors exposed:
 
-- general_error -> the general error tag from the PLC device
-- retentive_fail -> the retentive error tag from the PLC device
-- scan_overrun -> the scan overrun tag from the PLC device, which indicates a program overrun
+| entity name              | Description                                                                        |
+| ------------------------ | ---------------------------------------------------------------------------------- |
+| cXXXX.general_error      | Logical or of IEX general errors, indicates that at least one module has an error. |
+| cXXXX.retentive_fail     | Indicates that retentive memory failed.                                            |
+| cXXXX.scan_overrun       | Too long scan execution caused scan overrun error.                                 |
+| cXXXX.YYYY_general_error | Combined system error (timeout or program error), module is not operational.       |
+
+XXXX is the NAD of the controller, and YYYY is the IEX module prefix
 
 ### sensor
 
-There are some diagnostic binary sensors exposed:
+There are some diagnostic sensors exposed:
 
-- scan_time -> scan time in ms from the PLC program
-- scan_time_max -> maximum scan time in ms from the PLC program
-- sys.ip_port -> ip addres of the PLC device
+| entity name                 | Description                                                         |
+| --------------------------- | ------------------------------------------------------------------- |
+| cXXXX.scan_time             | Last scan execution time [ms].                                      |
+| cXXXX.scan_time_max         | Maximal scan execution time encountered since program started [ms]. |
+| cXXXX.scan_frequency        | Actual number of scans per second.                                  |
+| cXXXX.sys.ip_port           | IP address and UDP port of the controller.                          |
+| cXXXX.YYYY_iex_power_supply | Measured power supply voltage [V]. Measuring range is 0..40V.       |
+
+XXXX is the NAD of the controller, and YYYY is the IEX module prefix
+
+In addition to the diagnostic sensors, it will check if there are some more sensors:
+
+- temperature devices (eg: op00_temperature, ..)
+- humidity devices (eg: ts00_humidity)
+- energy meter device (eg: power_meter_power, power_meter_energy)
 
 #### Common Attributes
 
